@@ -1,0 +1,38 @@
+.quiz-parent {
+    width: 100%;
+}
+
+.create-quiz {
+    margin-left: 400px;
+    margin-top: 75px;
+
+    .quiz-heading {
+        margin-left: 200px;
+    }
+}
+
+@mixin alignEle {
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.category {
+    width: 22%;
+    @include alignEle;
+}
+
+.difficulty {
+    width: 20%;
+    @include alignEle;
+    ;
+}
+
+.create-btn {
+    width: 10%;
+    @include alignEle;
+}
+
+.question-list-parent {
+    margin-top: 25px;
+    margin-left: 20px;
+}
