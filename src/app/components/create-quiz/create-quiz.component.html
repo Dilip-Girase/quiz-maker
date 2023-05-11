@@ -3,6 +3,7 @@
     <div class="quiz-parent">
         <form [formGroup]="createQuizForm">
             <select class="category" id="categorySelect" placeholder="Select category" formControlName="category">
+                <option value="Select category">Select category</option>
                 <option *ngFor="let category of categoryList?.trivia_categories; let i=index" [value]="category?.id">
                     {{category?.name}}</option>
             </select>

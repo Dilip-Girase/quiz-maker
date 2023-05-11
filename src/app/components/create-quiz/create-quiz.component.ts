@@ -18,7 +18,7 @@ export class CreateQuizComponent {
   subscription: Subscription = new Subscription();
   categoryList: MainCategory<Category[]>;
   createQuizForm: FormGroup = new FormGroup({
-    category: new FormControl(0),
+    category: new FormControl('Select category'),
     difficultyLevel: new FormControl('')
   });
   questionList: QuestionList;
@@ -28,7 +28,6 @@ export class CreateQuizComponent {
     //getting category list.
     this.subscription = this.quizMakerService.getQuizCategory().subscribe((res: MainCategory<Category[]>) => {
       this.categoryList = res;
-      this.categoryList.trivia_categories.unshift({ id: 0, name: 'Select category' });
     });
 
   }
@@ -39,7 +38,7 @@ export class CreateQuizComponent {
     let difficultyLevel: string = this.createQuizForm.get('difficultyLevel')?.value;
 
     //if category and difficulty level not selected then questionlist api will not call.
-    if (category != 0 && difficultyLevel !== '') {
+    if (category > 0  && difficultyLevel !== '') {
       this.subscription = this.quizMakerService.getQuestionList(this.amount, category, difficultyLevel, this.type).subscribe((res: QuestionList) => {
         this.questionList = res;
       });
