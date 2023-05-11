@@ -10,11 +10,11 @@ export class QuizLoaderService {
   constructor() {
   }
 
-  quizLoaderShow() {
+  quizLoaderShow(): void {
     this.isLoaderLoading.next(true);
   }
 
-  quizLoaderHide() {
+  quizLoaderHide(): void {
     this.isLoaderLoading.next(false);
   }
 }

@@ -9,12 +9,12 @@ import { QuizMakerService } from 'src/app/services/quiz-maker.service';
   styleUrls: ['./question-list.component.scss']
 })
 export class QuestionListComponent {
-  @Input() results: Results[];
+  @Input() results: Results[] = [];
   showHideSubmitBtn: boolean = false;
   constructor(private route: Router, private quizMakerService: QuizMakerService) { }
   ngOnInit(): void { }
   //get new question list on every click on create buttton. 
-  ngOnChanges() {
+  ngOnChanges(): void {
     this.showHideSubmitBtn = false;
     for (let option of this.results) {
       option.selectedAnswer = '';
@@ -22,7 +22,7 @@ export class QuestionListComponent {
     }
   }
   chooseAnswer(index: number, selectedAnswer: string, answerIndex: number): void {
-    //set slected answer
+    //set selected answer
     if (this.results[index].indexAnswer !== answerIndex) {
       this.results[index].indexAnswer = answerIndex;
       this.results[index].selectedAnswer = selectedAnswer;
@@ -39,6 +39,7 @@ export class QuestionListComponent {
       this.showHideSubmitBtn = false;
     }
   }
+
   //submit and navigate to result component.
   submitResult(): void {
     this.quizMakerService.saveQuizAnswer(this.results);

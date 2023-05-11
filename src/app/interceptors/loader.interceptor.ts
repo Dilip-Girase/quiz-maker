@@ -10,10 +10,11 @@ export class LoaderInterceptor implements HttpInterceptor {
     constructor(private quizloaderService: QuizLoaderService) { }
 
     intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-
+        //start loader.
         this.quizloaderService.quizLoaderShow();
 
         return next.handle(request).pipe(
+            //stop loader.
             finalize(() => this.quizloaderService.quizLoaderHide()),
         );
     }

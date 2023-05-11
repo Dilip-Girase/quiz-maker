@@ -1,13 +1,18 @@
-<div *ngFor="let question of results; let i=index;">
-    <div class="question-cls">
-        <label>{{question.question}}</label>
+<ng-container *ngIf="results.length > 0; else noDataFount">
+    <div *ngFor="let question of results; let i=index;">
+        <div class="question-cls">
+            <label>{{question.question}}</label>
+        </div>
+        <div class="option-parent">
+            <button appQuizHover *ngFor="let option of question?.incorrect_answers; let answerIndex=index"
+                [ngClass]="{'selected-cls': question?.indexAnswer === answerIndex}"
+                (click)="chooseAnswer(i,option,answerIndex)" class="option-cls">{{option}} </button>
+        </div>
     </div>
-    <div class="option-parent">
-        <button appQuizHover *ngFor="let option of question?.incorrect_answers; let answerIndex=index"
-            [ngClass]="{'selected-cls': question?.indexAnswer === answerIndex}"
-            (click)="chooseAnswer(i,option,answerIndex)" class="option-cls">{{option}} </button>
+    <div class="submit-parent">
+        <button (click)="submitResult()" class="submit-quiz" *ngIf="showHideSubmitBtn"> Submit</button>
     </div>
-</div>
-<div class="submit-parent">
-    <button (click)="submitResult()" class="submit-quiz" *ngIf="showHideSubmitBtn"> Submit</button>
-</div>
+</ng-container>
+<ng-template #noDataFount>
+    <span class="noData">Data not available.</span>
+</ng-template>

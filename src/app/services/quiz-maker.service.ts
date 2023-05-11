@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Category, MainCategory } from '../models/category';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { map, filter, switchMap } from 'rxjs/operators';
 import { QuestionList, Results } from '../models/question-list';
 @Injectable({
   providedIn: 'root'
@@ -23,7 +22,7 @@ export class QuizMakerService {
     return this.http.get<QuestionList>(url);
   }
 
-  saveQuizAnswer(data: Results[]) {
+  saveQuizAnswer(data: Results[]): void {
     this.quizResult.next(data);
   }
 }

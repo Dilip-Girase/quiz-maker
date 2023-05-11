@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { Category, MainCategory, CreateQuizForm, DifficultyLevel } from 'src/app/models/category';
+import { Category, MainCategory, DifficultyLevel } from 'src/app/models/category';
 import { QuestionList, Results } from 'src/app/models/question-list';
 import { QuizMakerConstants } from 'src/app/quiz-maker.constants';
 import { QuizMakerService } from 'src/app/services/quiz-maker.service';
@@ -24,17 +24,21 @@ export class CreateQuizComponent {
   questionList: QuestionList;
   constructor(private quizMakerService: QuizMakerService) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
+    //getting category list.
     this.subscription = this.quizMakerService.getQuizCategory().subscribe((res: MainCategory<Category[]>) => {
       this.categoryList = res;
-      this.categoryList?.trivia_categories.unshift({ id: 0, name: 'Select Category' })
+      this.categoryList.trivia_categories.unshift({ id: 0, name: 'Select category' });
     });
+
   }
 
+  //getting question list.
   getQuestionList(): void {
-
     let category: number = this.createQuizForm.get('category')?.value;
     let difficultyLevel: string = this.createQuizForm.get('difficultyLevel')?.value;
+
+    //if category and difficulty level not selected then questionlist api will not call.
     if (category != 0 && difficultyLevel !== '') {
       this.subscription = this.quizMakerService.getQuestionList(this.amount, category, difficultyLevel, this.type).subscribe((res: QuestionList) => {
         this.questionList = res;
@@ -42,7 +46,7 @@ export class CreateQuizComponent {
     }
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 
