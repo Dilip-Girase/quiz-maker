@@ -18,7 +18,8 @@ export class QuestionListComponent {
     this.showHideSubmitBtn = false;
     for (let option of this.results) {
       option.selectedAnswer = '';
-      option.incorrect_answers.push(option.correct_answer);
+      let insertItemIndex = Math.floor(Math.random() * 4);
+      option.incorrect_answers.splice(insertItemIndex, 0, option.correct_answer);
     }
   }
   chooseAnswer(index: number, selectedAnswer: string, answerIndex: number): void {
