@@ -2,7 +2,7 @@ import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Results } from 'src/app/models/question-list';
 import { QuizMakerService } from 'src/app/services/quiz-maker.service';
-
+import { decode } from 'html-entities';
 @Component({
   selector: 'app-question-list',
   templateUrl: './question-list.component.html',
@@ -17,9 +17,13 @@ export class QuestionListComponent {
   ngOnChanges(): void {
     this.showHideSubmitBtn = false;
     for (let option of this.results) {
+      option.question = decode(option.question);
       option.selectedAnswer = '';
       let insertItemIndex = Math.floor(Math.random() * 4);
       option.incorrect_answers.splice(insertItemIndex, 0, option.correct_answer);
+      for (const [index, value] of option.incorrect_answers.entries()) {
+        option.incorrect_answers[index] = decode(value);
+      }
     }
   }
   chooseAnswer(index: number, selectedAnswer: string, answerIndex: number): void {
